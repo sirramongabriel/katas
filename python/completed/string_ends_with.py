@@ -14,14 +14,24 @@
 # test.assert_equals(solution('abcde', ''), True)
 #
 def solution(start, end):
-    length = len(end)
-
-    return len(end)
-
-    # if start[-length]==end:
-    #     return True
-    # else: 
-    #     return False
+    end_length = (len(end)*-1)
+    start_length = len(start)
+    int_end_length = int(end_length)
+    if start[end_length:] == end:
+        return True
+    elif end == '':
+        return True
+    else:
+        return False
 print(solution('abcde', 'cde')) # True
 print(solution('abcde', 'abc')) # False
 print(solution('abcde', ''))    # True
+#
+# Notes: 
+# Python slice
+#
+# a[start:stop]  # items start through stop-1
+# a[start:]      # items start through the rest of the array
+# a[:stop]       # items from the beginning through stop-1
+# a[:]           # a copy of the whole array
+#
