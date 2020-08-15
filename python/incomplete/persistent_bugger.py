@@ -9,22 +9,31 @@
 #  persistence(39)  => 3, because 3*9=27, 2*7=14, 1*4=4 & 4 has only one digit
 #  persistence(999) => 4, because 9*9*9=729, 7*2*9=126, 1*2*6=12 & finally 1*2=2
 #  persistence(4)   => 0, because 4 is already a one-digit number
-import numpy as np
+# 
+# Source: https://codereview.stackexchange.com/questions/156769/repeatedly-multiplying-digits-until-a-single-digit-is-obtained#
 def persistence(num):
     my_list = []
+    y = 1
     count = 0
-    second_count = 0
     str_num = str(num)
     num_length = len(str_num)
-    count = num_length
-    while count > 0:
-        for i in str_num:
-            my_list.append(int(i))
-            count-=1
-            
-    result = np.prod(np.array(my_list)) 
-    return result
-  
+    ints = []
+    num_as_list = list(str_num)
+
+    for n in num_as_list:
+        ints.append(int(n))
+    
+    while len(ints) > 1:
+        y *= ints.pop(0)
+    if len(ints) == 1:
+        return ints
+    # ints_length = len(ints)
+    # while len(ints) > 1:
+    #     for i in ints:
+    #         divmod(y, i)
+    #         count+=1
+    # return count
+    return ints
 
 #
 # Tests: 
@@ -35,6 +44,6 @@ def persistence(num):
     # Test.assert_equals(persistence(999), 4)
 # print("Basic tests")
 print(persistence(39))  # 3
-print(persistence(4))   # 0
-print(persistence(25))  # 2
-print(persistence(999)) # 4
+# print(persistence(4))   # 0
+# print(persistence(25))  # 2
+# print(persistence(999)) # 4
