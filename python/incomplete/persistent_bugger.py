@@ -11,30 +11,23 @@
 #  persistence(4)   => 0, because 4 is already a one-digit number
 # 
 # Source: https://codereview.stackexchange.com/questions/156769/repeatedly-multiplying-digits-until-a-single-digit-is-obtained#
+from functools import reduce
+import operator
 def persistence(num):
-    my_list = []
-    y = 1
-    count = 0
-    str_num = str(num)
-    num_length = len(str_num)
+    string = str(num)
+    str_digits = []
     ints = []
-    num_as_list = list(str_num)
-
-    for n in num_as_list:
-        ints.append(int(n))
-    
-    while len(ints) > 1:
-        y *= ints.pop(0)
-    if len(ints) == 1:
-        return ints
-    # ints_length = len(ints)
-    # while len(ints) > 1:
-    #     for i in ints:
-    #         divmod(y, i)
-    #         count+=1
-    # return count
-    return ints
-
+    result = 1
+    for i in string:
+        str_digits.append(i)
+    for d in str_digits:
+        ints.append(int(d))
+    while result > 9:
+        result = reduce(lambda x, y: x*y, ints)
+        str_digits.append(str(result))
+        for d in str_digits:
+            ints.append(int(d))
+    return result
 #
 # Tests: 
     # print("Basic tests")

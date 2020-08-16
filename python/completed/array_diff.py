@@ -10,10 +10,9 @@
 #     - array_diff([1,2],[1]) == [2]
 #     - If a value is present in b, all of its occurrences must be removed from the other:
 #     - array_diff([1,2,2,2,3],[2]) == [1,3]
-# import numpy as np
 def array_diff(a, b):
-    arr1 = list(dict.fromkeys(a))
-    arr2 = list(dict.fromkeys(b))
+    arr1 = a
+    arr2 = b
     result = []
     for i in arr1:
         if i not in arr2:

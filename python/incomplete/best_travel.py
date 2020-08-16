@@ -1,7 +1,7 @@
-# #
-# # Best Travel
-# #
-# # Summary: 
+#
+# Best Travel
+#
+# Summary: 
 #     - John and Mary want to travel between a few towns 
 #         - A, B, C 
 #     - Mary has a list of distances between these towns  
@@ -9,12 +9,11 @@
 #     - John says he doesn't want to drive 
 #         - more than t = 174 miles 
 #         - he will visit only 3 towns
-# # Problem: 
-#     Which distances, (i.e. towns), will they choose 
+# Problem: 
+#     - Which distances, (i.e. towns), will they choose 
 #         - so that the sum of the distances is the biggest possible to please Mary and John
-
+#
 # Explanation:
-
 #     - With list ls and 3 towns to visit they can make a choice between: 
 #         - [50,55,57]
 #         - [50,55,58]
@@ -47,15 +46,38 @@
 
 # Note: 
 #     - don't modify the input list ls
-import numpy as np 
-# from itertools import islice 
 # def choose_best_sum(t, k, ls):
-def choose_best_sum(max_distance, num_of_towns, distances):
-    
+import itertools
+from operator import itemgetter
 xs = [100, 76, 56, 44, 89, 73, 68, 56, 64, 123, 2333, 144, 50, 132, 123, 34, 89]
+ls = [50, 55, 57, 58, 60]
+def choose_best_sum(max_distance, num_of_towns, distances):
+    dist = list(itertools.permutations(distances, (num_of_towns)))
+    sorted_list = []
+    sum_list = []
+    closest_number_to_limit = 0
+    for x in dist:
+        sorted_list.append(sorted(x))
+    unique_tuples = [t for t in (set(tuple(i) for i in sorted_list))] 
+    unique_arrays = [list(ele) for ele in unique_tuples]
+    for x in unique_arrays:
+        sum_list.append(sum(x))
+    for num in sum_list:
+        if num > max_distance:
+            index = sum_list.index(num)
+            # sum_list.pop(index)
+            del sum_list[index]
+
+
+    # closest_number_to_limit = min(sum_list, key=lambda x:abs(x-max_distance))
+    # if closest_number_to_limit > max_distance:
+    #     return None
+    # else:
+    #     return closest_number_to_limit
+    return max_distance
 # Test.assert_equals(choose_best_sum(230, 4, xs), 230)
 # Test.assert_equals(choose_best_sum(430, 5, xs), 430)
 # Test.assert_equals(choose_best_sum(430, 8, xs), None)
-print(choose_best_sum(230, 4, xs)) # 230
-# print(choose_best_sum(430, 5, xs)) # 430
-# print(choose_best_sum(430, 8, xs)) # None
+print(choose_best_sum(230, 4, ls)) # 230
+print(choose_best_sum(430, 5, xs)) # 430
+print(choose_best_sum(430, 8, xs)) # None
