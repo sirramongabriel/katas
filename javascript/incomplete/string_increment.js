@@ -18,3 +18,24 @@
 //
 // Attention: If the number has leading zeros the amount of digits should be considered.
 //
+
+const incrementString = (string) => {
+ let numbers = string.replace(/[^0-9]/g,'');
+ if (numbers) {
+   string + (numbers += 1).toString();
+ } else {
+   string + '1'
+ }
+ return numbers;
+}
+
+// TESTS
+
+console.log( "----------------------------Increment String Function----------------------------");
+
+console.log(incrementString("foobar000"), "foobar001");
+console.log(incrementString("foobar001"), "foobar002");
+console.log(incrementString("foobar99"), "foobar100");
+console.log(incrementString("foobar099"), "foobar100");
+console.log(incrementString(""), "1");
+
